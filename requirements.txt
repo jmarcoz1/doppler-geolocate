@@ -1,0 +1,12 @@
+numpy>=1.26
+scipy>=1.11
+pandas>=2.0
+pyarrow>=14        # parquet cache (falls back to CSV if missing)
+requests>=2.31
+soundfile>=0.12    # wav/flac/ogg; mp3 etc. via ffmpeg on PATH
+matplotlib>=3.8
+pyproj>=3.6        # only used by tests as an independent geodesy check
+pytest>=7
+# optional:
+# pyopensky        # OpenSky Trino historical database (approved accounts)
+# opensky-api      # official OpenSky REST client (we call REST directly)

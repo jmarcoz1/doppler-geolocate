@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dopplerloc"
+version = "0.1.0"
+description = "Geolocate an audio recording by matching aircraft Doppler curves against ADS-B flight tracks"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["numpy>=1.26", "scipy>=1.11", "pandas>=2.0", "requests>=2.31", "soundfile>=0.12",
+                "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+parquet = ["pyarrow>=14"]
+history = ["pyopensky"]
+dev = ["pytest>=7", "pyproj>=3.6", "pyarrow>=14"]
+
+[project.scripts]
+dopplerloc = "dopplerloc.cli:main"
+
+[tool.setuptools]
+packages = ["dopplerloc", "dopplerloc.sources"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
