@@ -4,3 +4,9 @@ __pycache__/
 data/cache/
 .scratch/
 .pytest_cache/
+
+# downloaded (copyrighted, large) audio + caches
+data/real_video/
+outputs/real_video/adsbx_cache/
+*.egg-info/
+scripts/__pycache__/

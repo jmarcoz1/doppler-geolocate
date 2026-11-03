@@ -16,6 +16,8 @@ dependencies = ["numpy>=1.26", "scipy>=1.11", "pandas>=2.0", "requests>=2.31", "
 parquet = ["pyarrow>=14"]
 history = ["pyopensky"]
 dev = ["pytest>=7", "pyproj>=3.6", "pyarrow>=14"]
+notebook = ["jupyter>=1.0", "nbconvert>=7", "ipykernel>=6", "ipywidgets>=8", "folium>=0.15", "pyarrow>=14"]
+realvideo = ["yt-dlp>=2024.1"]
 
 [project.scripts]
 dopplerloc = "dopplerloc.cli:main"

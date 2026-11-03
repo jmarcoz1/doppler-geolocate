@@ -1,5 +1,9 @@
 # dopplerloc: geolocate an audio recording from aircraft Doppler curves
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jmarcoz1/doppler-geolocate/main?labpath=notebooks%2Fwalkthrough.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jmarcoz1/doppler-geolocate/blob/main/notebooks/walkthrough.ipynb)
+
+
 When a jet flies past, the tones it radiates (fan blade-pass frequency, compressor and turbine
 tones, propeller harmonics) reach you Doppler-shifted. The shape of that frequency-vs-time
 "S-curve" depends on where you stood relative to the flight path. ADS-B flight-tracking data says
@@ -216,6 +220,31 @@ Output files:
 * `spectrogram_reassigned.png`
 * `synthetic_recording.wav`
 * `synthetic_adsb_tracks.parquet`
+
+## Interactive walkthrough notebook
+
+`notebooks/walkthrough.ipynb` goes through the chain one step at a time: the raw spectrogram, then
+each cleaning stage separately (band-pass, hum notches, noise floor, tonal enhancement, reassigned),
+ridge extraction, the Doppler fit, the Lloyd mic height, and finally the location likelihood refined
+from a coarse grid to a medium grid, a fine grid, and least squares, drawn on an OpenStreetMap (folium)
+map with the ADS-B tracks, the truth, and the estimate. In a live kernel, ipywidgets sliders control
+the STFT window, the hum notch, the noise-floor percentile, the ridge threshold, and the grid step, and
+a play/step slider animates the map refinement. Every figure also renders statically. The notebook is
+saved executed (`DOPPLERLOC_HEADLESS=1 jupyter nbconvert --to notebook --execute --inplace notebooks/walkthrough.ipynb`).
+It is generated from `scripts/build_notebook.py`.
+
+```bash
+pip install -e ".[notebook]" && jupyter lab notebooks/walkthrough.ipynb
+```
+
+## Real-video attempt (audio only)
+
+`scripts/real_video_attempt.py URL` downloads only the audio of a flyover video and extracts every
+constraint the audio supports: flyover count and spacing, a de-warped harmonic-comb Doppler fit per
+pass (speed, slant CPA distance), the engine order structure, the Lloyd-fringe h_r·altitude product
+and a mic-height bound, the stereo delay sweep, and the 50/60 Hz hum. It then measures how ambiguous
+an ADS-B match would be without the recording time. Results, figures, and the metadata grading
+(done afterwards, kept separate) are in `outputs/real_video/README.md`.
 
 ## 8. Limitations and next steps
 
